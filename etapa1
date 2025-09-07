@@ -1,0 +1,99 @@
+etapa 1 da nossa Sprint 1: Configuração do Ambiente e do Projeto.
+
+Nesta fase, o objetivo é preparar a base para o desenvolvimento, garantindo que todas as ferramentas e a estrutura inicial estejam no lugar.
+
+1. Preparação do Ambiente de Desenvolvimento
+1.1. Instalação do JDK 11
+
+Você já deve ter o Java instalado, mas certifique-se de que é a versão 11. Se precisar, pode fazer o download e instalação no site oficial da Oracle ou usando um gerenciador de pacotes como o SDKMAN!
+
+1.2. Configuração da IDE (IntelliJ IDEA)
+
+Vamos usar o IntelliJ IDEA, que é uma das IDEs mais populares para Java e facilita muito o gerenciamento de projetos Maven e JavaFX.
+
+Abra o IntelliJ.
+
+Vá em File > New > Project.
+
+Selecione Maven no menu à esquerda.
+
+Preencha os campos GroupId e ArtifactId. Sugiro:
+
+GroupId: br.com.exercito.sgppc
+
+ArtifactId: sgppc
+
+Clique em Finish. O IntelliJ vai criar a estrutura de pastas básica do nosso projeto.
+
+2. Configuração do Banco de Dados
+2.1. Instalação e Configuração do MySQL
+
+Se você ainda não tem o MySQL instalado, pode usar o XAMPP ou o MySQL Community Server.
+
+2.2. Criação do Banco de Dados
+
+Abra seu cliente de banco de dados (por exemplo, MySQL Workbench) e execute o script que definimos. Este é um passo crítico para o nosso projeto, pois a tabela será o coração da nossa aplicação.
+
+SQL
+
+CREATE DATABASE IF NOT EXISTS sgppc;
+USE sgppc;
+
+CREATE TABLE IF NOT EXISTS processo (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    numero_processo VARCHAR(50) NOT NULL UNIQUE,
+    nome_requerente VARCHAR(255) NOT NULL,
+    data_entrada DATE NOT NULL,
+    path_digital VARCHAR(255) NOT NULL,
+    localizacao_fisica VARCHAR(100),
+    status ENUM('Em Análise', 'Finalizado', 'Arquivado') NOT NULL,
+    observacoes TEXT,
+    data_digitalizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+3. Configuração do Projeto Maven
+3.1. Adição das Dependências
+
+Agora, vamos adicionar as bibliotecas que o nosso projeto precisa. Elas devem ser inseridas no arquivo pom.xml dentro da tag <dependencies>.
+
+XML
+
+<project>
+    ...
+    <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.28</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>11</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.17.1</version>
+        </dependency>
+
+        </dependencies>
+    ...
+</project>
+Observação: A versão do mysql-connector-java pode variar. A 8.0.28 é adequada para o contexto de 2019.
+
+Com esses passos, o nosso ambiente e a estrutura do projeto estão prontos. Agora, podemos avançar para a próxima etapa: a estrutura do código e a camada de acesso a dados (DAO).
+
+Me diga quando estiver pronto para a próxima etapa.
